@@ -1,3 +1,4 @@
+VOKLAK
 So, what makes AXC different?
 The main idea is prevention first. We block the ways cheaters get in, rather than waiting for them to cause problems and then reacting. It runs in layers to make sure everything stays locked down without killing performance.
 How it works under the hood
@@ -32,3 +33,17 @@ This is strictly for protecting games and software distributed through Nummutex.
 IN SHORT
 With Voklak AXC you get reliable user-mode + kernel-mode protection, properly signed components, a smarter exploit-focused design, free voice chat, and way less headache for developers.
 Publish once, stay protected by default. Simple as that.
+
+
+Bans aren't decided by the anticheat itself – that's all server-side. AXC's job is smarter: it sniffs out anomalies in real-time. Think weird memory tweaks, funky process behavior, impossible movements, or any exploit-like red flags that scream "something's off."
+How detection + banning flows
+AXC spots the anomaly
+User-mode checks flag odd runtime stuff, kernel driver enforces and confirms. No signatures – it's all about behavioral patterns and integrity breaks.
+Secure report to the server
+It bundles up the evidence (timestamps, hashes, context) and sends it over our locked-down channel to Nummutex servers. Nothing personal, just the facts needed to verify.
+Server makes the call
+Our backend crunches it: Is this a clear cheat? Repeated offender? Weighs against player history, game rules, etc. If it's ban-worthy, boom – server-side enforcement kicks in (kick, temp ban, permaban). False positives? We tune on the fly to keep 'em rare.
+This setup keeps things fair and lightweight:
+No client-side bans = Cheaters can't tamper with decisions locally.
+Server oversight = Humans/AI review edge cases for accuracy.
+Low latency = Detection happens instantly, reports fly fast.
