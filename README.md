@@ -1,6 +1,8 @@
 # Voklak-AXC
 Voklak AXC (Anti-eXploit-Cheat) is a security system focused on preventing exploit-based cheating through execution control, runtime integrity enforcement, and proactive mitigation techniques.
 Voklak AXC
+<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/25708220-2b19-4a33-a7b6-04011a4eb82d" />
+
 Anti-eXploit-Cheat Platform
 Voklak AXC is a multi-layer Anti-eXploit-Cheat (AXC) system designed to protect games and applications published on the Nummutex platform. It combines user-mode monitoring, kernel-mode enforcement, and platform-level services to prevent exploit-based cheating while maintaining performance and stability.
 AXC is not a traditional signature-based anti-cheat. Instead, it focuses on execution integrity, exploit prevention, and controlled communication between trusted components.
@@ -34,7 +36,11 @@ Requests are validated before execution
 Unauthorized or malformed requests are rejected
 No direct or unsafe access paths are exposed
 This separation ensures stability and reduces the attack surface.
+<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/d707a206-16a7-4e9c-a29d-f9666e241bcf" />
+
 Code Signing & Trust
+<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/1a552c7e-154d-4461-92de-f0356c86be54" />
+
 All kernel-level components are distributed with valid digital signatures issued through trusted certificate providers (e.g., nummutex.com infrastructure).
 This ensures:
 Driver authenticity
@@ -83,6 +89,7 @@ Voklak AXC is intended solely for protecting applications and games published on
 Summary
 Voklak AXC provides:
 User-mode + kernel-mode protection
+
 Secure, signed enforcement components
 Exploit-focused anti-cheat design
 Built-in platform services like voice chat
