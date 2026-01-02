@@ -1,5 +1,29 @@
 # Voklak-AXC
 Voklak AXC (Anti-eXploit-Cheat) is a security system focused on preventing exploit-based cheating through execution control, runtime integrity enforcement, and proactive mitigation techniques.
+EFI Boot Priority Pinning (Boot0000) in Voklak-AC
+How It Works
+Voklak-AC uses a custom EFI bootloader (based on open-source Quibble) installed as the highest priority boot entry (Boot0000) in UEFI BootOrder.
+
+During installation, the launcher/tool runs efibootmgr (or equivalent) to:
+Add the custom EFI file (e.g., voklak.efi) as Boot0000.
+Reorder BootOrder so it is first: BootOrder: 0000,XXXX,...
+
+On every power-on/reboot:
+UEFI firmware loads voklak.efi first (before Windows bootmgfw.efi or any other bootloader).
+<img width="1373" height="1323" alt="image" src="https://github.com/user-attachments/assets/455d9032-0dd7-4b6d-ac86-3e5ae1ddeeb1" />
+The custom EFI measures real hardware (SMBIOS serials, disk GUIDs, MAC, PCI devices).
+Writes tamper state + real HWID baseline to secure NVRAM variables.
+Chains to the original Windows bootloader.
+<img width="1051" height="718" alt="image" src="https://github.com/user-attachments/assets/2297de3a-2998-4de4-97b3-a9b997fed9f9" />
+This requires Secure Boot enabled and the custom EFI signed with a trusted cert (EV code-signing).
+Why It's Extremely Strong Against Cheating/Spoofing
+Threat How Normal ACs FailWhy Boot0000 Pinning WinsHWID Spoofing (e.g., AMIDEWIN, disk serial changers)Windows reports spoofed values → AC believes fake HWIDCustom EFI runs before Windows → measures real current hardware directly → detects mismatch vs. what Windows later reportsNVRAM Persistence(advanced spoof trick)Spoofed values persist in NVRAM → clean boot looks fakeEFI measures live reality every boot (not cached NVRAM) → spots inconsistency → tamper flagBootkit / Early MalwareMalware hooks before kernel AC loadsCustom EFI is first code executed → no execution slot for attacker before measurementBootOrder TamperingCheater reorders to skip ACPinning + self-validation: If not Boot0000 → tamper → self-disable/alertUnsigned Bootloader BypassDisable Secure Boot → run unsigned code earlySecure Boot enforced + custom EFI signed → unsigned attempts rejected by firmware
+Bottom Line:
+By running unconditionally first (Boot0000), the custom EFI establishes a hardware-rooted trust anchor before any OS code. Windows/kernel can't lie about hardware without immediate detection.
+
+This closes vectors that bypass even Market-level kernel ACs (e.g., early spoofing, persistence tricks).
+Stronger than most commercial ACs — true measured boot without TPM dependency.
+Note: Requires user to enable Secure Boot + one-time install. Fully transparent, no persistence beyond protection
 Voklak AXC
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/25708220-2b19-4a33-a7b6-04011a4eb82d" />
 
